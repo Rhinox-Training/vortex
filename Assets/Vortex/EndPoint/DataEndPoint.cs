@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Rhinox.GUIUtils.Odin;
 using Rhinox.Lightspeed.Reflection;
-using Rhinox.OdinInspector.Attributes;
 using Rhinox.Perceptor;
 using Sirenix.OdinInspector;
 
