@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Rhinox.OdinInspector.Attributes;
+using Rhinox.GUIUtils.Odin;
 using Rhinox.Perceptor;
 using Sirenix.OdinInspector;
 #if UNITY_EDITOR
