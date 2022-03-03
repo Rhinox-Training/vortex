@@ -26,6 +26,7 @@ namespace Rhinox.Vortex
             }
 
             _endPoint = defaultConfiguration.CreateEndPoint();
+            _endPointStack.Push(_endPoint);
 
             if (_endPoint == null)
             {
@@ -51,7 +52,8 @@ namespace Rhinox.Vortex
 
         public static DataEndPoint PopEndPoint()
         {
-            _endPoint = _endPointStack.Pop();
+            _endPointStack.Pop();
+            _endPoint = _endPointStack.Peek();
             return _endPoint;
         }
     }
