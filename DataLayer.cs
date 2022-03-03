@@ -18,6 +18,10 @@ namespace Rhinox.Vortex
         private EndPointConfiguration _configuration;
         private static EndPointConfiguration _defaultConfiguration;
 
+        private static DataLayer _instance;
+
+        public static DataLayer Instance => _instance;
+
         public bool IsDefaultConfig
         {
             get
@@ -37,7 +41,9 @@ namespace Rhinox.Vortex
             }
 
             _defaultConfiguration = defaultConfiguration;
-            InitializeConfig(defaultConfiguration);
+
+            _instance = new DataLayer();
+            _instance.InitializeConfig(defaultConfiguration);
         }
 
         public void InitializeConfig(EndPointConfiguration config)
