@@ -10,81 +10,55 @@ using UnityEngine;
 
 namespace Rhinox.Vortex
 {
-    public class DataLayer // TODO: scene transition and singleton management
+    public static class DataLayer // TODO: scene transition and singleton management
     {
         [ShowInPlayMode, HideReferenceObjectPicker, HideLabel]
-        private DataEndPoint _endPoint;
+        private static DataEndPoint _endPoint;
 
-        private EndPointConfiguration _configuration;
-        private static EndPointConfiguration _defaultConfiguration;
+        private static Stack<DataEndPoint> _endPointStack;
 
-        private static DataLayer _instance;
-
-        public static DataLayer Instance => _instance;
-
-        public bool IsDefaultConfig
-        {
-            get
-            {
-                if (_defaultConfiguration == null)
-                    return false;
-                return _defaultConfiguration == _configuration;
-            }
-        }
-
-        public static void DefaultInit(EndPointConfiguration defaultConfiguration)
+        public static DataEndPoint DefaultInit(EndPointConfiguration defaultConfiguration)
         {
             if (defaultConfiguration == null)
             {
                 PLog.Warn<VortexLogger>($"DataLayer was not initialized, DataLayerConfig failed to load...");
-                return;
-            }
-
-            _defaultConfiguration = defaultConfiguration;
-
-            _instance = new DataLayer();
-            _instance.InitializeConfig(defaultConfiguration);
-        }
-
-        public void InitializeConfig(EndPointConfiguration config)
-        {
-            if (_configuration == config)
-                return;
-            
-            if (config == null)
-            {
-                PLog.Error<VortexLogger>($"DataLayer was not initialized, DataLayerConfig doesn't contain a valid configuration. Check the Resources folder");
-                return;
-            }
-            
-            _endPoint = config.CreateEndPoint();
-            if (_endPoint == null)
-            {
-                PLog.Error<VortexLogger>($"DataLayer failed to initialize, no endpoint was created with the current configuration. Check DataLayerConfig and try again.");
-                return;
-            }
-
-            _configuration = config;
-            _endPoint.Initialize();
-        }
-
-        public static IDataTable<T> GetTable<T>()
-        {
-            if (Instance == null)
-            {
-                #if UNITY_EDITOR
-                // TODO check implementation; was a log that EditorDataLayer should be used
-                if (!Application.isPlaying)
-                    return EditorDataLayer.GetTable<T>();
-                #endif
                 return null;
             }
 
-            return Instance._endPoint.GetTable<T>();
+            _endPoint = defaultConfiguration.CreateEndPoint();
+
+            if (_endPoint == null)
+            {
+                PLog.Error<VortexLogger>(
+                    $"DataLayer failed to initialize, no endpoint was created with the current configuration. Check DataLayerConfig and try again.");
+                return null;
+            }
+
+            _endPoint.Initialize();
+
+            return _endPoint;
+        }
+
+        public static IDataTable<T> GetTable<T>() => _endPoint.GetTable<T>();
+
+        public static void PushEndPoint(DataEndPoint endPoint)
+        {
+            if (_endPointStack == null)
+                _endPointStack = new Stack<DataEndPoint>();
+            _endPointStack.Push(endPoint);
+            _endPoint = endPoint;
+        }
+
+        public static DataEndPoint PopEndPoint()
+        {
+            _endPoint = _endPointStack.Pop();
+            return _endPoint;
         }
     }
-    
-    
+}
+
+
+/*
 #if UNITY_EDITOR
     public class EditorDataLayer
     {
@@ -273,4 +247,4 @@ namespace Rhinox.Vortex
         }
     }
 #endif
-}
+}*/
