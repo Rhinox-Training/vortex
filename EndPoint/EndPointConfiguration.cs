@@ -1,5 +1,5 @@
 using System;
-using Rhinox.OdinInspector.Attributes;
+using Rhinox.GUIUtils.Odin;
 
 namespace Rhinox.Vortex
 {

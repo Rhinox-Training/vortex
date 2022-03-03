@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Rhinox.OdinInspector.Attributes;
+using Rhinox.GUIUtils.Odin;
 using Rhinox.Perceptor;
 using Sirenix.OdinInspector;
 
