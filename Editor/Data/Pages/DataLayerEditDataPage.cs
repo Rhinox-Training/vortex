@@ -1,6 +1,7 @@
 using System;
 using System.Reflection;
-using Rhinox.VOLT.Data;
+using Rhinox.GUIUtils.Odin;
+using Rhinox.GUIUtils.Odin.Editor;
 using Sirenix.OdinInspector;
 using UnityEditor;
 

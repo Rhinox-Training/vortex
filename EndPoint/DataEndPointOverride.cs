@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Rhinox.Vortex
 {
-    [ExecutionOrder(-8000)]
+    //[ExecutionOrder(-8000)]
     public class DataEndPointOverride : MonoBehaviour
     {
         [DisableInPlayMode, SerializeReference]
@@ -13,13 +13,13 @@ namespace Rhinox.Vortex
         private void Awake()
         {
             if (Override != null)
-                DataLayer.Instance.InitializeConfig(Override?.Config);
+                DataLayer.PushEndPoint(Override?.Config.CreateEndPoint());
         }
 
         private void OnDestroy()
         {
             if (Override != null)
-                DataLayer.Instance.DefaultInit();
+                DataLayer.PopEndPoint();
         }
     }
 }
