@@ -1,0 +1,28 @@
+{
+  "name": "com.rhinox.open.vortex",
+  "displayName": "Vortex - Data Layer Integrator",
+  "version": "0.1.0",
+  "unity": "2019.3",
+  "description": "Integration layer for Data backends with editor",
+  "keywords": [
+    "csharp",
+    "unity",
+    "extensions",
+    "data",
+    "database"
+  ],
+  "category": "Unity",
+  "dependencies": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rhinox-Training/vortex.git"
+  },
+  "author": "Rhinox",
+  "license": "Apache V.2",
+  "bugs": {
+    "url": "https://github.com/Rhinox-Training/vortex/issues"
+  },
+  "homepage": "https://github.com/Rhinox-Training/vortex#readme",
+  "type": "library"
+}
