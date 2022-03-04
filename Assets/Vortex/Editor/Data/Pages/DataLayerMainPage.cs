@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Rhinox.Utilities;
-using Rhinox.VOLT.Data;
-using Rhinox.VOLT.Data.File;
 using Sirenix.OdinInspector;
+using Rhinox.GUIUtils.Odin.Editor;
+using Rhinox.Lightspeed.IO;
+using Rhinox.Perceptor;
+using Rhinox.Vortex.File;
 using Sirenix.Serialization;
-using Sirenix.Utilities.Editor;
 using UnityEditor;
 using UnityEngine;
 
@@ -39,7 +40,7 @@ namespace Rhinox.Vortex.Editor
         {
             get
             {
-                return OverrideConfig != null ? OverrideConfig.Config : DataLayerDefaults.Instance.Configuration;
+                return OverrideConfig != null ? OverrideConfig.Config : null; // TODO: DataLayerDefaults.Instance.Configuration;
             }
         }
 
@@ -53,6 +54,7 @@ namespace Rhinox.Vortex.Editor
             OnDataLayerOptionChanged(); // TODO: check order of execution, to see if we can change this to _selectedEndPoint
         }
         
+        // TODO: infobox general architecture?
         [Button(ButtonSizes.Large), EnableIf("@ValidType"), VerticalGroup("Yes"),
         InfoBox("You need at least 1 ConnectionConstraints entry!", InfoMessageType.Warning, nameof(CheckConnectionTypeConfig))]
         private void AddEntry()
@@ -143,12 +145,15 @@ namespace Rhinox.Vortex.Editor
         // Validation of DataLayer for ConnectionType <-> ConnectionConstraints configuration
         private bool CheckConnectionTypeConfig()
         {
-            if (Type != typeof(ConnectionConstraints))
-                return false;
-
-            return _genericTable.ElementCount == 0;
+            return false;
+            // TODO: Validator extensions?
+            //if (Type != typeof(ConnectionConstraints))
+            //  return false;
+            //
+            //return _genericTable.ElementCount == 0;
         }
         
+        // TODO: how to add these dynamically as an extension
 #region LEGACY_SUPPORT
         [PropertySpace, Button(ButtonSizes.Large), LabelText("Import Legacy Data (.rxpi/.rxti/...) from File"), EnableIf("@ValidType"), VerticalGroup("Yes")]
         private void ImportDataFromFile()
@@ -175,7 +180,7 @@ namespace Rhinox.Vortex.Editor
             IEnumerable fileEnumeration = fileData as IEnumerable;
             if (fileData == null || fileEnumeration == null)
             {
-                BetterLog.Error<VOLTLogger>($"Could not properly extract data from path '{path}'");
+                PLog.Error<VortexLogger>($"Could not properly extract data from path '{path}'");
                 return;
             }
 

@@ -1,4 +1,5 @@
 using Rhinox.GUIUtils.Editor;
+using Rhinox.GUIUtils.Odin.Editor;
 using Sirenix.Utilities.Editor;
 using UnityEditor;
 using UnityEngine;

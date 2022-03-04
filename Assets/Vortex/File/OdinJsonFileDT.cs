@@ -1,6 +1,8 @@
 ﻿#if ODIN_INSPECTOR
 using System;
+using System.Linq;
 using Rhinox.Lightspeed.IO;
+using Sirenix.Serialization;
 
 namespace Rhinox.Vortex.File
 {
@@ -15,7 +17,7 @@ namespace Rhinox.Vortex.File
 
         protected override bool Serialize(string path, T[] infos)
         {
-            byte[] json = SerializationUtility.SerializeValue(dataObjs != null ? dataObjs.ToArray() : Array.Empty<T>(), DataFormat.JSON);
+            byte[] json = SerializationUtility.SerializeValue(infos != null ? infos.ToArray() : Array.Empty<T>(), DataFormat.JSON);
             
             System.IO.File.WriteAllBytes(path, json);
             return true;

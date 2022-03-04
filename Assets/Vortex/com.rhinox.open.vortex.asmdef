@@ -2,7 +2,8 @@
     "name": "com.rhinox.open.vortex",
     "references": [
         "com.rhinox.open.perceptor",
-        "com.rhinox.open.lightspeed"
+        "com.rhinox.open.lightspeed",
+        "com.rhinox.open.guiutils.odin"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -1,4 +1,6 @@
 using System;
+using Rhinox.GUIUtils.Odin;
+using Rhinox.GUIUtils.Odin.Editor;
 using Sirenix.OdinInspector;
 using UnityEditor;
 
