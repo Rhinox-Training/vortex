@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using Rhinox.Lightspeed.IO;
 using Rhinox.Perceptor;
-using UnityEngine;
 
 namespace Rhinox.Vortex.File
 {
@@ -72,7 +71,7 @@ namespace Rhinox.Vortex.File
             return true;
         }
         
-        protected abstract bool TryDeserialize(string path, out T[] infos);
-        protected abstract bool Serialize(string path, T[] infos);
+        protected abstract bool TryDeserialize(string path, out T[] dataObjs);
+        protected abstract bool Serialize(string path, T[] dataObjs);
     }
 }
