@@ -12,5 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 026379810d1f45c3a4f163d45f7a5e39, type: 3}
   m_Name: VortexSettings
   m_EditorClassIdentifier: 
-  m_Number: 42
-  m_SomeString: The answer to the universe
+  Configuration:
+    id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: FileEndPointConfig, ns: Rhinox.Vortex.File, asm: com.rhinox.open.vortex}
+      data:
+        BasePath: 
+        Namespace: VortexTest

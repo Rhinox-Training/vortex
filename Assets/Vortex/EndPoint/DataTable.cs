@@ -71,7 +71,7 @@ namespace Rhinox.Vortex
             
         }
 
-        protected abstract int GetID(T dataObject);
+        protected abstract int GetID(T dto);
 
         protected abstract ICollection<T> LoadData(bool createIfNotExists = false);
 
@@ -83,22 +83,22 @@ namespace Rhinox.Vortex
         }
 
         // CREATE / UPDATE
-        public bool StoreData(T dataObj, bool allowOverwrite = true)
+        public bool StoreData(T dto, bool allowOverwrite = true)
         {
             if (!CheckEndPointLoaded())
                 return false;
 
-            int id = GetID(dataObj);
+            int id = GetID(dto);
             
             if (_dataCacheByID.ContainsKey(id) && !allowOverwrite)
                 return false;
 
             if (_dataCacheByID.ContainsKey(id))
-                _dataCacheByID[id] = dataObj;
+                _dataCacheByID[id] = dto;
             else
-                _dataCacheByID.Add(id, dataObj);
+                _dataCacheByID.Add(id, dto);
 
-            OnSave(dataObj);
+            OnSave(dto);
             
             if (!SaveData(_dataCacheByID.Values))
                 PLog.Warn<VortexLogger>($"Did not store cached data on store");
@@ -106,7 +106,7 @@ namespace Rhinox.Vortex
             return true;
         }
         
-        protected virtual void OnSave(T dataObj) { }
+        protected virtual void OnSave(T dto) { }
         
         // READ
         public ICollection<int> GetIDs()
@@ -158,9 +158,9 @@ namespace Rhinox.Vortex
             return true;
         }
 
-        protected virtual T OnLoad(T dataObj)
+        protected virtual T OnLoad(T dto)
         {
-            return dataObj;
+            return dto;
         }
         
     }

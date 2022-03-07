@@ -7,22 +7,22 @@ namespace Rhinox.Vortex.File
 {
     public abstract class XmlFileDT<T> : FileDataTable<T>
     {
-        protected override bool TryDeserialize(string path, out T[] infos)
+        protected override bool TryDeserialize(string path, out T[] dataObjs)
         { 
             XmlSerializer serializer = new XmlSerializer(typeof(T[]));
             using (StreamReader reader = new StreamReader(path))
             {
-                infos = (T[])serializer.Deserialize(reader.BaseStream);
+                dataObjs = (T[])serializer.Deserialize(reader.BaseStream);
             }
             return true;
         }
 
-        protected override bool Serialize(string path, T[] infos)
+        protected override bool Serialize(string path, T[] dataObjs)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(T[]));
             using (StreamWriter writer = new StreamWriter(path))
             {
-                serializer.Serialize(writer.BaseStream, infos);
+                serializer.Serialize(writer.BaseStream, dataObjs);
             }
             return true;
         }

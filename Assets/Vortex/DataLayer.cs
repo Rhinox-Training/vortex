@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Rhinox.GUIUtils.Odin;
+using Rhinox.Lightspeed;
 using Rhinox.Perceptor;
 using Sirenix.OdinInspector;
 #if UNITY_EDITOR
@@ -52,6 +54,12 @@ namespace Rhinox.Vortex
 
         public static DataEndPoint PopEndPoint()
         {
+            if (_endPointStack.IsNullOrEmpty())
+            {
+                PLog.Error<VortexLogger>("PopEndPoint could not be executed, are you sure you properly pushed an endpoint?");
+                return null;
+            }
+            
             _endPointStack.Pop();
             _endPoint = _endPointStack.Peek();
             return _endPoint;

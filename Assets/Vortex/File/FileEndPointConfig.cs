@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using Rhinox.Lightspeed;
 using Rhinox.Lightspeed.IO;
 using Rhinox.Perceptor;
 using Sirenix.OdinInspector;
@@ -33,7 +34,7 @@ namespace Rhinox.Vortex.File
         }
         
         [FolderPath(ParentFolder = "$_parentPath", RequireExistingPath = true)]
-        public string BasePath;
+        public string BasePath = "";
 
         #if UNITY_EDITOR
         private string _infoBoxMessage => $"DataTables will be saved at: streamingAssetsPath/{Path.Combine("Data", BasePath, Namespace).Replace('\\', '/')}/";

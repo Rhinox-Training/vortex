@@ -41,7 +41,8 @@ namespace Rhinox.Vortex.Editor
         {
             get
             {
-                return OverrideConfig != null ? OverrideConfig.Config : null; // TODO: DataLayerDefaults.Instance.Configuration;
+                // TODO: move to DataLayerDefaults.Instance.Configuration; (File)
+                return OverrideConfig != null ? OverrideConfig.Config : VortexSettings.Instance.Configuration;
             }
         }
 
