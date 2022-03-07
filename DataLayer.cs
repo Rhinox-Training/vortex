@@ -27,8 +27,8 @@ namespace Rhinox.Vortex
                 return null;
             }
 
-            _endPoint = defaultConfiguration.CreateEndPoint();
-            _endPointStack.Push(_endPoint);
+            var endpoint = defaultConfiguration.CreateEndPoint();
+            PushEndPoint(endpoint);
 
             if (_endPoint == null)
             {

@@ -47,6 +47,15 @@ namespace Rhinox.Vortex
         protected abstract void Init();
         
 #if UNITY_EDITOR
+        /// <summary>
+        /// Add the following to your implementation
+        /// #if UNITY_EDITOR
+        /// [SettingsProvider]
+        /// public static SettingsProvider RegisterProvider() => Instance.CreateSettingsProvider();
+        /// #endif
+        /// Reason: This needs to be static and cannot be done with inheritance
+        /// </summary>
+        
         private static PropertyTree _tree;
         
         protected SettingsProvider CreateSettingsProvider()
