@@ -1,19 +1,17 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using Rhinox.GUIUtils.Odin;
 using Rhinox.Lightspeed;
 using Rhinox.Perceptor;
 using Sirenix.OdinInspector;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
-using UnityEngine;
 
 namespace Rhinox.Vortex
 {
     public static class DataLayer // TODO: scene transition and singleton management
     {
+        private static bool _initialized;
+
+        public static bool IsInitialized => _initialized;
+
         [ShowInPlayMode, HideReferenceObjectPicker, HideLabel]
         private static DataEndPoint _endPoint;
 
@@ -27,27 +25,49 @@ namespace Rhinox.Vortex
                 return null;
             }
 
-            var endpoint = defaultConfiguration.CreateEndPoint();
-            PushEndPoint(endpoint);
+            var endPoint = defaultConfiguration.CreateEndPoint();
+            _endPointStack = new Stack<DataEndPoint>();
 
-            if (_endPoint == null)
+            if (endPoint == null)
             {
                 PLog.Error<VortexLogger>(
                     $"DataLayer failed to initialize, no endpoint was created with the current configuration. Check DataLayerConfig and try again.");
                 return null;
             }
 
-            _endPoint.Initialize();
+            endPoint.Initialize();
+
+            _initialized = true;
+            
+            PushEndPoint(endPoint);
 
             return _endPoint;
         }
 
-        public static IDataTable<T> GetTable<T>() => _endPoint.GetTable<T>();
+        public static void Shutdown()
+        {
+            if (!_initialized)
+                return;
+            
+            _endPoint = null;
+            _endPointStack.Clear();
+            
+            _initialized = false;
+        }
+
+        public static IDataTable<T> GetTable<T>()
+        {
+            if (!_initialized)
+                DefaultInit(VortexSettings.Instance.Configuration);
+            
+            return _endPoint.GetTable<T>();
+        }
 
         public static void PushEndPoint(DataEndPoint endPoint)
         {
-            if (_endPointStack == null)
-                _endPointStack = new Stack<DataEndPoint>();
+            if (!_initialized)
+                DefaultInit(VortexSettings.Instance.Configuration);
+            
             _endPointStack.Push(endPoint);
             _endPoint = endPoint;
         }
