@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using Rhinox.Lightspeed.IO;
 using Sirenix.Serialization;
+using SerializationUtility = Sirenix.Serialization.SerializationUtility;
 
 namespace Rhinox.Vortex.File
 {

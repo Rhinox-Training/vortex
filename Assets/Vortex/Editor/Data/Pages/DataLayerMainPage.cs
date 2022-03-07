@@ -12,6 +12,7 @@ using Rhinox.Vortex.File;
 using Sirenix.Serialization;
 using UnityEditor;
 using UnityEngine;
+using SerializationUtility = Sirenix.Serialization.SerializationUtility;
 
 namespace Rhinox.Vortex.Editor
 {
