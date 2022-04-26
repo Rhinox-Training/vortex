@@ -22,7 +22,7 @@ public class ComplexType
 }
 
 [DataEndPoint(typeof(FileEndPoint), -10)]
-public class ComplexTypeDT : XmlFileDT<ComplexType>
+public class ComplexTypeDT : JsonFileDT<ComplexType>
 {
     protected override string _tableName => "ComplexObjects";
 

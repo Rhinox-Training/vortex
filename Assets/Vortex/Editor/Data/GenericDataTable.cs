@@ -18,6 +18,7 @@ namespace Rhinox.Vortex.Editor
         private IDataTable _tableInstance;
         private MethodInfo _getIDsMethod;
         private MethodInfo _getIDMethod;
+        private MethodInfo _getNewIDMethod;
         private MethodInfo _storeMethod;
         private MethodInfo _getDataMethod;
         private MethodInfo _removeDataMethod;
@@ -61,6 +62,7 @@ namespace Rhinox.Vortex.Editor
             _tableType = typeof(DataTable<>).MakeGenericType(_selectedType);
             _getIDsMethod = _tableType.GetMethod("GetIDs", BindingFlags.Instance | BindingFlags.Public | BindingFlags.FlattenHierarchy);
             _getIDMethod = _tableType.GetMethod("GetID", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy);
+            _getNewIDMethod = _tableType.GetMethod("GetNewID", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy);
             _storeMethod = _tableType.GetMethod("StoreData", BindingFlags.Instance | BindingFlags.Public | BindingFlags.FlattenHierarchy);
             _getDataMethod = _tableType.GetMethod("GetData", BindingFlags.Instance | BindingFlags.Public | BindingFlags.FlattenHierarchy);
             _removeDataMethod = _tableType.GetMethod("RemoveData", BindingFlags.Instance | BindingFlags.Public | BindingFlags.FlattenHierarchy);
@@ -86,6 +88,13 @@ namespace Rhinox.Vortex.Editor
             if (!_loaded)
                 return -1;
             return (int)_getIDMethod.Invoke(_tableInstance, new[] {dataObject});
+        }
+        
+        public int GetNewID()
+        {
+            if (!_loaded)
+                return -1;
+            return (int) _getNewIDMethod.Invoke(_tableInstance, null);
         }
         
         public bool StoreObject(object storeObject, bool overwrite = false)

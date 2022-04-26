@@ -1,13 +1,1 @@
-<?xml version="1.0"?>
-<ArrayOfComplexType xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <ComplexType>
-    <Id>0</Id>
-    <Name>TestRoot</Name>
-    <Nested>
-      <Name>TestNest1</Name>
-      <Nested>
-        <Name>TestNest2</Name>
-      </Nested>
-    </Nested>
-  </ComplexType>
-</ArrayOfComplexType>
+[{"Id":0,"Name":"test","Nested":{"Name":"Nested1","Nested":{"Name":"Nested2","Nested":null}}}]

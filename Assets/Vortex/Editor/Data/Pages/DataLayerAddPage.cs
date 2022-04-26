@@ -1,4 +1,5 @@
 using System;
+using Rhinox.GUIUtils.Attributes;
 using Rhinox.GUIUtils.Odin;
 using Rhinox.GUIUtils.Odin.Editor;
 using Sirenix.OdinInspector;
@@ -6,7 +7,7 @@ using UnityEditor;
 
 namespace Rhinox.Vortex.Editor
 {
-    public class DataLayerAddPage  : DataLayerBaseDataPage
+    public class DataLayerAddPage : DataLayerBaseDataPage
     {
         [HideReferenceObjectPicker, NonSerialized, ShowInEditor, VerticalGroup("Yes")]
         public object Data;
@@ -14,6 +15,7 @@ namespace Rhinox.Vortex.Editor
         public DataLayerAddPage(SlidePagedWindowNavigationHelper<object> pager, GenericDataTable dataTable) : base(pager, dataTable)
         {
             Data = Activator.CreateInstance(dataTable.DataType);
+            // Data.Id = _dataTable.GetNewID();
         }
 
         // Store
