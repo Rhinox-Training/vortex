@@ -1,8 +1,9 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Rhinox.GUIUtils.Odin;
+using Rhinox.GUIUtils.Attributes;
 using Rhinox.Perceptor;
 using Sirenix.OdinInspector;
 
@@ -15,10 +16,12 @@ namespace Rhinox.Vortex
         void FlushData();
     }
 
-    public interface IReadOnlyDataTable<T>
+    public interface IReadOnlyDataTable<T> : IReadOnlyCollection<T>
     {
         // READ
         ICollection<int> GetIDs();
+
+        int GetNewID();
 
         bool HasData(int id);
         
@@ -36,6 +39,8 @@ namespace Rhinox.Vortex
         bool RemoveData(int id);
     }
 
+    // [ValueTypeAsTitle]
+    [Title("@$property.ValueEntry.TypeOfValue.Name")]
     public abstract class DataTable<T> : IDataTable<T>
     {
         #if UNITY_EDITOR
@@ -116,6 +121,13 @@ namespace Rhinox.Vortex
             return _dataCacheByID.Keys;
         }
 
+        public int GetNewID()
+        {
+            if (Count == 0)
+                return 0;
+            return _dataCacheByID.Keys.Max() + 1;
+        }
+
         public bool HasData(int id)
         {
             CheckEndPointLoaded();
@@ -162,7 +174,18 @@ namespace Rhinox.Vortex
         {
             return dto;
         }
-        
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return _dataCacheByID.Values.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public int Count => _dataCacheByID.Count;
     }
     
     

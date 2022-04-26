@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Rhinox.GUIUtils.Odin;
+using Rhinox.GUIUtils.Attributes;
 using Rhinox.Lightspeed;
 using Rhinox.Perceptor;
 using Sirenix.OdinInspector;
@@ -57,7 +57,7 @@ namespace Rhinox.Vortex
 
         public static IDataTable<T> GetTable<T>()
         {
-            if (!_initialized)
+            if (!_initialized) // TODO: do we want this? if not what about editor?
                 DefaultInit(VortexSettings.Instance.Configuration);
             
             return _endPoint.GetTable<T>();
@@ -65,7 +65,7 @@ namespace Rhinox.Vortex
 
         public static void PushEndPoint(DataEndPoint endPoint)
         {
-            if (!_initialized)
+            if (!_initialized) // TODO: do we want this? if not what about editor?
                 DefaultInit(VortexSettings.Instance.Configuration);
             
             _endPointStack.Push(endPoint);
