@@ -4,7 +4,8 @@
         "com.rhinox.open.perceptor",
         "com.rhinox.open.lightspeed",
         "com.rhinox.open.guiutils.odin",
-        "com.rhinox.open.guiutils.attributes"
+        "com.rhinox.open.guiutils.attributes",
+        "com.rhinox.open.utilities"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
