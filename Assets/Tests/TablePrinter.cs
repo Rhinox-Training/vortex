@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Rhinox.GUIUtils.Attributes;
-using Rhinox.GUIUtils.Odin;
 using Rhinox.Lightspeed;
 using Rhinox.Vortex;
 using Sirenix.OdinInspector;
