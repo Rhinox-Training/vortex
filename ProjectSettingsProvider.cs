@@ -6,8 +6,10 @@ using Rhinox.Lightspeed.IO;
 using Rhinox.Vortex.File;
 using UnityEngine;
 
-#if UNITY_EDITOR
+#if UNITY_EDITOR && ODIN_INSPECTOR
 using Sirenix.OdinInspector.Editor;
+#endif
+#if UNITY_EDITOR
 using UnityEditor;
 #endif
 
@@ -46,7 +48,7 @@ namespace Rhinox.Vortex
 
         protected abstract void Init();
         
-#if UNITY_EDITOR
+#if UNITY_EDITOR && ODIN_INSPECTOR
         /// <summary>
         /// Add the following to your implementation
         /// #if UNITY_EDITOR
