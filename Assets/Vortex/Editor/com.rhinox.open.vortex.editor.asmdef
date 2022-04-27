@@ -1,0 +1,26 @@
+{
+    "name": "com.rhinox.open.vortex.editor",
+    "references": [
+        "GUID:fc025ba4ac3997440926e87ec084af89",
+        "GUID:7262f4696183b8841b571481b3ac0765",
+        "GUID:9f2912ef3cf155747b28c57f7136ff68",
+        "GUID:0ddc618087b4c494893b70a3bef42e02",
+        "GUID:994bb3523438fcf44a56344a589ed083",
+        "GUID:d06f234cedf03a546807d093bc1d736b",
+        "GUID:62a965aa53b0d0e4a9715c9a86d7fd31",
+        "GUID:cacc866837634ee43b789e23dc71d920"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "ODIN_INSPECTOR"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
