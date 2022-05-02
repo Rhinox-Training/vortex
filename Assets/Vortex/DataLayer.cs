@@ -80,7 +80,15 @@ namespace Rhinox.Vortex
             
             return _endPoint.ReadTable<T>();
         }
-        
+
+        public static void PushEndPointFromConfigOrDefault(DataLayerConfig config = null)
+        {
+            if (config != null)
+                PushEndPointFromConfig(config);
+            else
+                PushDefaultEndPoint();
+        }
+
         public static void PushEndPointFromConfig(DataLayerConfig config)
         {
             if (config == null)
@@ -108,6 +116,15 @@ namespace Rhinox.Vortex
             
             _endPointStack.Push(endPoint);
             _endPoint = endPoint;
+        }
+        
+        public static void PushDefaultEndPoint()
+        {
+            if (!_initialized) // TODO: do we want this? if not what about editor?
+                DefaultInit(VortexSettings.Instance.Configuration);
+            
+            _endPointStack.Push(_defaultEndPoint);
+            _endPoint = _defaultEndPoint;
         }
 
         public static DataEndPoint PopEndPoint()
