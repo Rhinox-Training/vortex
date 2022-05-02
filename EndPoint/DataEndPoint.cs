@@ -137,6 +137,9 @@ namespace Rhinox.Vortex
             
             return _dataTables.Remove(key);
         }
+
+        // TODO: This API method can be used to provide cached versions of tables, for now just coupled to GetTable
+        public IReadOnlyDataTable<T> ReadTable<T>() => GetTable<T>();
         
         public IDataTable<T> GetTable<T>()
         {
@@ -147,7 +150,6 @@ namespace Rhinox.Vortex
             PLog.Warn<VortexLogger>($"Requested table for '{typeof(T).Name}' but none was found in '{this.GetType().Name}'. Available Types:\n" +
                                        $"\t{string.Join("\n\t", _dataTables.Keys)}");
             return null;
-
         }
 
         public IDataTable GetTable(Type key)
