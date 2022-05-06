@@ -88,6 +88,14 @@ namespace Rhinox.Vortex
             else
                 PushDefaultEndPoint();
         }
+        
+        public static void PushEndPointFromSceneOrDefault()
+        {
+            DataLayerConfig config = null;
+            if (!DataLayer.FindSceneEndPointConfig(out config))
+                config = null;
+            DataLayer.PushEndPointFromConfigOrDefault(config);
+        }
 
         public static void PushEndPointFromConfig(DataLayerConfig config)
         {
