@@ -108,8 +108,7 @@ namespace Rhinox.Vortex
             DataEndPoint endPoint;
             if (!TryGetEndPoint(config, out endPoint))
             {
-                PLog.Error<VortexLogger>(
-                    $"Could not find/create EndPoint for config {config.name}, pushing default endpoint...");
+                PLog.Error<VortexLogger>($"Could not find/create EndPoint for config {config.name}, pushing default endpoint...");
                 endPoint = _defaultEndPoint;
             }
 

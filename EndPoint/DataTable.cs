@@ -102,10 +102,17 @@ namespace Rhinox.Vortex
                 _dataCacheByID[id] = dto;
             else
                 _dataCacheByID.Add(id, dto);
-
+            
+            // We might have changed an id, check whether the cache is still valid
+            foreach (var key in _dataCacheByID.Keys.ToArray())
+            {
+                if (GetID(_dataCacheByID[key]) != key)
+                    _dataCacheByID.Remove(key);
+            }
+            
             OnSave(dto);
             
-            if (!SaveData(_dataCacheByID.Values))
+            if (!SaveData(_dataCacheByID.Values.Distinct().OrderBy(GetID).ToArray()))
                 PLog.Warn<VortexLogger>($"Did not store cached data on store");
             
             return true;
