@@ -112,7 +112,7 @@ namespace Rhinox.Vortex
             
             OnSave(dto);
             
-            if (!SaveData(_dataCacheByID.Values.Distinct().OrderBy(GetID).ToArray()))
+            if (!SaveData(_dataCacheByID.Values))
                 PLog.Warn<VortexLogger>($"Did not store cached data on store");
             
             return true;
