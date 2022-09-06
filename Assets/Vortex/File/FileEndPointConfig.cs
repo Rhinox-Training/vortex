@@ -8,6 +8,7 @@ using UnityEngine;
 
 namespace Rhinox.Vortex.File
 {
+    [Serializable]
     public class FileEndPointConfig : EndPointConfiguration
     {
         public static string ROOT_PATH => Path.Combine(Application.streamingAssetsPath, "Data");
