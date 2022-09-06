@@ -5,6 +5,7 @@ using Rhinox.GUIUtils.Attributes;
 using Rhinox.Lightspeed;
 using Rhinox.Perceptor;
 using Sirenix.OdinInspector;
+using Object = UnityEngine.Object;
 
 namespace Rhinox.Vortex
 {
@@ -20,6 +21,7 @@ namespace Rhinox.Vortex
         private static Stack<DataEndPoint> _endPointStack;
         private static Dictionary<DataLayerConfig, DataEndPoint> _endPointOverrides;
         private static DataEndPoint _defaultEndPoint;
+        private static DataEndPointOverride _activeOverride;
 
         public static DataEndPoint DefaultInit(EndPointConfiguration defaultConfiguration)
         {
@@ -50,6 +52,16 @@ namespace Rhinox.Vortex
             _endPointOverrides = new Dictionary<DataLayerConfig, DataEndPoint>();
             _endPointStack = new Stack<DataEndPoint>();
             PushEndPoint(_defaultEndPoint);
+
+            if (_activeOverride == null)
+            {
+                var overrider = Object.FindObjectOfType<DataEndPointOverride>();
+                if (overrider)
+                {
+                    overrider.Activate();
+                    _activeOverride = overrider;
+                }
+            }
 
             return _endPoint;
         }
