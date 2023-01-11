@@ -62,10 +62,10 @@ namespace Rhinox.Vortex.File
         protected override bool SaveData(ICollection<T> dataObjs)
         {
             string path = _filePath;
-            if (string.IsNullOrWhiteSpace(path))
+            if (string.IsNullOrWhiteSpace(path) || dataObjs == null)
                 return false;
 
-            Serialize(path, dataObjs != null ? dataObjs.ToArray() : Array.Empty<T>());
+            Serialize(path, dataObjs.ToArray());
             PLog.Trace<VortexLogger>($"Data {typeof(T).Name} saved to '{path}' (count: {dataObjs.Count})");
             
             return true;

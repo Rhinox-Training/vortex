@@ -43,7 +43,7 @@ namespace Rhinox.Vortex
                     $"DataLayer failed to initialize, no endpoint was created with the current configuration. Check DataLayerConfig and try again.");
                 return null;
             }
-
+            
             _defaultEndPoint.Initialize();
 
             _initialized = true;
