@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Rhinox.GUIUtils.Editor.Helpers;
 using Sirenix.OdinInspector;
 using Rhinox.GUIUtils.Odin.Editor;
 using Rhinox.Lightspeed.IO;
@@ -15,7 +16,7 @@ using SerializationUtility = Sirenix.Serialization.SerializationUtility;
 
 namespace Rhinox.Vortex.Editor
 {
-    public class DataLayerMainPage : OdinPagerPage
+    public class DataLayerMainPage : PagerPage
     {
         [ValueDropdown(nameof(GetDataLayerOverrides)), OnValueChanged(nameof(OnDataLayerOptionChanged)), InlineButton(nameof(SetDefaultConfig), "Default")]
         public DataLayerConfig OverrideConfig;
