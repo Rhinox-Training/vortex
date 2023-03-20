@@ -1,9 +1,10 @@
+using Rhinox.GUIUtils.Editor.Helpers;
 using Rhinox.GUIUtils.Odin.Editor;
 using UnityEngine;
 
 namespace Rhinox.Vortex.Editor
 {
-    public class DataLayerBaseDataPage : OdinPagerPage
+    public class DataLayerBaseDataPage : PagerPage
     {
         protected GenericDataTable _dataTable;
 

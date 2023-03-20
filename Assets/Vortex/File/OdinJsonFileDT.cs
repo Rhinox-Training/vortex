@@ -18,7 +18,7 @@ namespace Rhinox.Vortex.File
 
         protected override bool Serialize(string path, T[] infos)
         {
-            byte[] json = SerializationUtility.SerializeValue(infos != null ? infos.ToArray() : Array.Empty<T>(), DataFormat.JSON);
+            byte[] json = SerializationUtility.SerializeValue(infos ?? Array.Empty<T>(), DataFormat.JSON);
             
             System.IO.File.WriteAllBytes(path, json);
             return true;

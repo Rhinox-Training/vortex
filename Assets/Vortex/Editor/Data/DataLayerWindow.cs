@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Rhinox.Vortex.Editor
 {
-    public class DataLayerWindow : OdinPagerEditorWindow<DataLayerWindow>
+    public class DataLayerWindow : PagerEditorWindow<DataLayerWindow>
     {
         [SerializeField, HideInInspector] private DataLayerMainPage _rootPage;
         protected override object RootPage => _rootPage ?? (_rootPage = new DataLayerMainPage(_pager));
