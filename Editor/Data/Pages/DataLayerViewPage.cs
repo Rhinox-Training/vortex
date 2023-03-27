@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using Rhinox.GUIUtils.Attributes;
 using Rhinox.GUIUtils.Editor.Helpers;
-using Rhinox.GUIUtils.Odin;
-using Rhinox.GUIUtils.Odin.Editor;
 using Sirenix.OdinInspector;
 using UnityEditor;
 
@@ -35,9 +32,7 @@ namespace Rhinox.Vortex.Editor
     public class DataLayerViewPage : DataLayerBaseDataPage
     {
         private const string GROUP_FIX = "DoNotRemove_FixesLayout";
-        [ShowInInspector, 
-         ListDrawerSettings(Expanded = true, DraggableItems = false, IsReadOnly = true, ShowPaging = true, NumberOfItemsPerPage = 8), 
-         VerticalGroup(GROUP_FIX)]
+        [ShowInInspector, ListDrawerSettings(Expanded = true, DraggableItems = false, IsReadOnly = true, ShowPaging = true, NumberOfItemsPerPage = 8), VerticalGroup(GROUP_FIX)]
         public List<ObjectEntry> Objects;
         
         public DataLayerViewPage(SlidePagedWindowNavigationHelper<object> pager, GenericDataTable dataTable) : base(pager, dataTable)
