@@ -78,6 +78,8 @@ namespace Rhinox.Vortex
 
         protected abstract int GetID(T dto);
 
+        protected abstract T SetID(T dto, int id);
+
         protected abstract ICollection<T> LoadData(bool createIfNotExists = false);
 
         protected abstract bool SaveData(ICollection<T> dataObjs);

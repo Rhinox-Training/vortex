@@ -16,4 +16,10 @@ public class SimpleTypeDT : XmlFileDT<SimpleType>
     protected override string _tableName => "SimpleObjects";
 
     protected override int GetID(SimpleType dto) => dto.Id;
+    
+    protected override SimpleType SetID(SimpleType dto, int id)
+    {
+        dto.Id = id;
+        return dto;
+    }
 }

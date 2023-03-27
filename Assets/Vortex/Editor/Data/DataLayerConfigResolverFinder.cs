@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if ODIN_INSPECTOR
+using System;
 using Rhinox.GUIUtils.Odin.Editor;
 using Rhinox.Lightspeed.Reflection;
 using Rhinox.VOLT.Data;
@@ -35,3 +36,4 @@ namespace Rhinox.Vortex.Editor
         }
     }
 }
+#endif
