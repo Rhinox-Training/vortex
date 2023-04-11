@@ -25,7 +25,6 @@ public class BigDatabaseItem
     }
 }
 
-[DataEndPoint(typeof(FileEndPoint), -10)]
 public class BigDT : XmlFileDT<BigDatabaseItem>
 {
     protected override string _tableName => "BigTable";

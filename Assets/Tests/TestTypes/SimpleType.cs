@@ -10,7 +10,6 @@ public class SimpleType
     public string Name;
 }
 
-[DataEndPoint(typeof(FileEndPoint), -10)]
 public class SimpleTypeDT : XmlFileDT<SimpleType>
 {
     protected override string _tableName => "SimpleObjects";
