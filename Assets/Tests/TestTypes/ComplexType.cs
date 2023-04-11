@@ -18,13 +18,16 @@ public class ComplexType
     public string Name;
 
     public NestedComplexType Nested;
-    
 }
 
-[DataEndPoint(typeof(FileEndPoint), -10)]
 public class ComplexTypeDT : JsonFileDT<ComplexType>
 {
     protected override string _tableName => "ComplexObjects";
 
     protected override int GetID(ComplexType dto) => dto.Id;
+    protected override ComplexType SetID(ComplexType dto, int id)
+    {
+        dto.Id = id;
+        return dto;
+    }
 }

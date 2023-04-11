@@ -1,11 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using Rhinox.GUIUtils.Editor.Helpers;
-using Rhinox.GUIUtils.Odin.Editor;
 using Sirenix.OdinInspector;
-using Sirenix.Utilities.Editor;
 using UnityEditor;
 using UnityEngine;
 
@@ -14,10 +11,10 @@ namespace Rhinox.Vortex.Editor
     public class DataLayerRemovePage : DataLayerBaseDataPage
     {
         [Title("Remove by ID")]
-        [ShowInInspector, ValueDropdown(nameof(GetIDValues)), OnValueChanged(nameof(IDChanged)), VerticalGroup("Yes")]
+        [ShowInInspector, ValueDropdown(nameof(GetIDValues)), OnValueChanged(nameof(IDChanged)), VerticalGroup]
         public int IDToRemove = -1;
 
-        [NonSerialized, ReadOnly, HideLabel, ShowInInspector, VerticalGroup("Yes")]
+        [NonSerialized, ReadOnly, HideLabel, ShowInInspector, VerticalGroup]
         public object Element = null;
         
         private enum RemovalCheckType
@@ -29,7 +26,7 @@ namespace Rhinox.Vortex.Editor
             GreaterThanOrEqual
         }
 
-        [ShowInInspector, SerializeField, HideLabel, VerticalGroup("Yes")] 
+        [ShowInInspector, SerializeField, HideLabel, VerticalGroup] 
         private RemovalCheckType _checkType = RemovalCheckType.Equals;
 
         private bool _validID => IDToRemove != -1;
@@ -57,7 +54,7 @@ namespace Rhinox.Vortex.Editor
             _ids = _dataTable.GetIDs().ToList();
         }
 
-        [Button, EnableIf("@_validID"), VerticalGroup("Yes")]
+        [Button, EnableIf("_validID"), VerticalGroup]
         private void Remove()
         {
             if (!EditorUtility.DisplayDialog("Confirm", 
@@ -104,13 +101,13 @@ namespace Rhinox.Vortex.Editor
         }
 
 
-        [Title("Other"), Button, VerticalGroup("Yes")]
+        [Title("Other"), Button, VerticalGroup]
         private void RemoveAll()
         {
             if (!EditorUtility.DisplayDialog("Confirm", 
                 $"Are you sure you want to remove all entries of {_dataTable.TableTypeName} from the DataLayer?)",
-                "Confirm", "Cancel"))
-            return;
+                "Confirm", "Cancel")) 
+                return;
 
             var idsToRemove = _ids.ToList();
             foreach (var id in idsToRemove)
@@ -123,7 +120,7 @@ namespace Rhinox.Vortex.Editor
             IDToRemove = -1;
         }
 
-        [PropertySpace, Button, VerticalGroup("Yes")]
+        [PropertySpace, Button, VerticalGroup]
         private void Back()
         {
             EditorApplication.delayCall += _pager.NavigateBack;

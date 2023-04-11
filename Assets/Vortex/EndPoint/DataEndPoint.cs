@@ -36,7 +36,7 @@ namespace Rhinox.Vortex
 
                 var dataAttribute = type.GetCustomAttribute<DataEndPointAttribute>();
 
-                if (dataAttribute.EndPointType == this.GetType())
+                if (this.GetType().InheritsFrom(dataAttribute.EndPointType))
                 {
                     types.Add(type);
                 }

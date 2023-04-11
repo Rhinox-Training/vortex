@@ -8,7 +8,9 @@
         "GUID:994bb3523438fcf44a56344a589ed083",
         "GUID:d06f234cedf03a546807d093bc1d736b",
         "GUID:62a965aa53b0d0e4a9715c9a86d7fd31",
-        "GUID:cacc866837634ee43b789e23dc71d920"
+        "GUID:cacc866837634ee43b789e23dc71d920",
+        "GUID:63f11407a78fdae4d8a6e658a5e2ff23",
+        "GUID:3b169ccda512e504b9e2eb8b0bec14f9"
     ],
     "includePlatforms": [
         "Editor"
@@ -18,9 +20,7 @@
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,
-    "defineConstraints": [
-        "ODIN_INSPECTOR"
-    ],
+    "defineConstraints": [],
     "versionDefines": [],
     "noEngineReferences": false
 }

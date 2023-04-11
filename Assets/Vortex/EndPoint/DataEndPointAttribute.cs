@@ -2,6 +2,7 @@ using System;
 
 namespace Rhinox.Vortex
 {
+    [AttributeUsage(AttributeTargets.Class)]
     public class DataEndPointAttribute : Attribute
     {
         public Type EndPointType { get; }

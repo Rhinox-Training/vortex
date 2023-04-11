@@ -3,16 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Rhinox.GUIUtils.Editor;
 using Rhinox.GUIUtils.Editor.Helpers;
 using Sirenix.OdinInspector;
-using Rhinox.GUIUtils.Odin.Editor;
 using Rhinox.Lightspeed.IO;
 using Rhinox.Perceptor;
 using Rhinox.Vortex.File;
-using Sirenix.Serialization;
 using UnityEditor;
 using UnityEngine;
+#if ODIN_INSPECTOR
+using Sirenix.Serialization;
 using SerializationUtility = Sirenix.Serialization.SerializationUtility;
+#endif
 
 namespace Rhinox.Vortex.Editor
 {
@@ -21,15 +23,9 @@ namespace Rhinox.Vortex.Editor
         [ValueDropdown(nameof(GetDataLayerOverrides)), OnValueChanged(nameof(OnDataLayerOptionChanged)), InlineButton(nameof(SetDefaultConfig), "Default")]
         public DataLayerConfig OverrideConfig;
 
-        private void SetDefaultConfig()
-        {
-            OverrideConfig = null;
-            OnDataLayerOptionChanged();
-        }
-        
-        [ValueDropdown(nameof(GetDataTables)), OnValueChanged(nameof(OnTypeOptionChanged)), NonSerialized, ShowInInspector, VerticalGroup("Yes")]
+        [ValueDropdown(nameof(GetDataTables)), OnValueChanged(nameof(UpdateType)), NonSerialized, ShowInInspector, VerticalGroup]
         public Type Type;
-
+        
         private bool ValidType => Type != null;
 
         private ICollection<Type> _dataTableTypes;
@@ -56,24 +52,25 @@ namespace Rhinox.Vortex.Editor
             OnDataLayerOptionChanged(); // TODO: check order of execution, to see if we can change this to _selectedEndPoint
         }
         
-        // TODO: infobox general architecture?
-        [Button(ButtonSizes.Large), EnableIf("@ValidType"), VerticalGroup("Yes"),
-        InfoBox("You need at least 1 ConnectionConstraints entry!", InfoMessageType.Warning, nameof(CheckConnectionTypeConfig))]
+        [PropertySpace(10)]
+        [Button(ButtonSizes.Large), EnableIf("ValidType"), VerticalGroup]
         private void AddEntry()
         {
             _pager.PushPage(new DataLayerAddPage(_pager, _genericTable), "Add Database Entry");
         }
         
-        [Button(ButtonSizes.Large), LabelText("@ViewEntriesName"), EnableIf("@ValidType"), VerticalGroup("Yes")]
+        [Button(ButtonSizes.Large), LabelText("@ViewEntriesName"), EnableIf("ValidType"), VerticalGroup]
         private void ViewEntries()
         {
             _pager.PushPage(new DataLayerViewPage(_pager, _genericTable), "View Database Entries");
         }
         
-        [Button(ButtonSizes.Large), EnableIf("@ValidTypeAndNotEmpty"), VerticalGroup("Yes")]
+        [PropertySpace(10)]
+        [Button(ButtonSizes.Large), EnableIf("ValidTypeAndNotEmpty"), VerticalGroup]
         private void RemoveEntry()
         {
             _pager.PushPage(new DataLayerRemovePage(_pager, _genericTable), "Remove Database Entry");
+            
         }
 
         private ICollection<ValueDropdownItem> GetDataTables()
@@ -132,10 +129,15 @@ namespace Rhinox.Vortex.Editor
             }
         }
 
-        private void OnTypeOptionChanged()
+        private void UpdateType()
         {
-            if (_genericTable != null)
-                _genericTable.SetType(Type);
+            _genericTable.SetType(Type);
+        }
+        
+        private void SetDefaultConfig()
+        {
+            OverrideConfig = null;
+            OnDataLayerOptionChanged();
         }
 
         protected override void OnDrawBottom()
@@ -144,20 +146,10 @@ namespace Rhinox.Vortex.Editor
             GUILayout.FlexibleSpace();
         }
 
-        // Validation of DataLayer for ConnectionType <-> ConnectionConstraints configuration
-        private bool CheckConnectionTypeConfig()
-        {
-            return false;
-            // TODO: Validator extensions?
-            //if (Type != typeof(ConnectionConstraints))
-            //  return false;
-            //
-            //return _genericTable.ElementCount == 0;
-        }
-        
+#if ODIN_INSPECTOR
         // TODO: how to add these dynamically as an extension
 #region LEGACY_SUPPORT
-        [PropertySpace, Button(ButtonSizes.Large), LabelText("Import Legacy Data (.rxpi/.rxti/...) from File"), EnableIf("@ValidType"), VerticalGroup("Yes")]
+        [PropertySpace, Button(ButtonSizes.Large), LabelText("Import Legacy Data (.rxpi/.rxti/...) from File"), EnableIf("@ValidType"), VerticalGroup]
         private void ImportDataFromFile()
         {
             string path = EditorUtility.OpenFilePanel($"Import {Type.Name} from File", FileEndPointConfig.ROOT_PATH, "*");
@@ -216,5 +208,6 @@ namespace Rhinox.Vortex.Editor
             }
         }
 #endregion
+#endif
     }
 }
