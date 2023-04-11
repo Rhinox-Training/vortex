@@ -7,6 +7,7 @@ using Rhinox.Perceptor;
 
 namespace Rhinox.Vortex.File
 {
+    [DataEndPoint(typeof(FileEndPoint))]
     public abstract class FileDataTable<T> : DataTable<T>
     {
         protected abstract string _tableName { get; }
