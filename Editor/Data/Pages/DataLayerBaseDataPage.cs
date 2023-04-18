@@ -11,6 +11,18 @@ namespace Rhinox.Vortex.Editor
         public DataLayerBaseDataPage(SlidePagedWindowNavigationHelper<object> pager, GenericDataTable dataTable) : base(pager)
         {
             _dataTable = dataTable;
+            _dataTable.DataChanged += OnDataChanged;
+        }
+
+        ~DataLayerBaseDataPage()
+        {
+            if (_dataTable != null)
+                _dataTable.DataChanged -= OnDataChanged;
+        }
+
+        private void OnDataChanged(GenericDataTable sender)
+        {
+            DataLayer.RefreshEndPoint(sender.EndPoint);
         }
 
         protected override void OnDrawBottom()

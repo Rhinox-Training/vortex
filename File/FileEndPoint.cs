@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using Rhinox.Lightspeed;
 using Rhinox.Lightspeed.IO;
 using Rhinox.Perceptor;
 using UnityEngine;
@@ -37,6 +38,23 @@ namespace Rhinox.Vortex.File
                     PLog.Error<VortexLogger>($"Failed to create directory {_fullPathAbs} \n since {e.ToString()}");
                 }
             }
+        }
+
+        protected override bool CheckData(DataEndPoint other)
+        {
+            if (other is FileEndPoint otherFileEndPoint)
+            {
+                if (_fullPathAbs != null && _fullPathAbs.Equals(otherFileEndPoint._fullPathAbs))
+                {
+                    if (string.IsNullOrWhiteSpace(_namespace))
+                        return string.IsNullOrWhiteSpace(otherFileEndPoint._namespace);
+                    else
+                        return _namespace.Equals(otherFileEndPoint._namespace);
+                }
+
+                return false;
+            }
+            return base.CheckData(other);
         }
     }
 }

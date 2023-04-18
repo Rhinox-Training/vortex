@@ -25,6 +25,9 @@ namespace Rhinox.Vortex.Editor
         private MethodInfo _getDataMethod;
         private MethodInfo _removeDataMethod;
 
+		public delegate void DataChangedEventHandler(GenericDataTable sender);
+		public event DataChangedEventHandler DataChanged;
+
         public GenericDataTable(DataEndPoint endPoint, Type t = null)
         {
             if (endPoint == null) throw new ArgumentException(nameof(endPoint));
@@ -122,7 +125,10 @@ namespace Rhinox.Vortex.Editor
         {
             if (!_loaded)
                 return false;
-            return (bool)_storeMethod.Invoke(_tableInstance, new[] {storeObject, overwrite});
+            bool result = (bool)_storeMethod.Invoke(_tableInstance, new[] {storeObject, overwrite});
+			if (result)
+				DataChanged?.Invoke(this);
+			return result;
         }
 
         public object GetStoredObject(int key)
@@ -139,11 +145,14 @@ namespace Rhinox.Vortex.Editor
             return ((ICollection<int>) _getIDsMethod?.Invoke(_tableInstance, null)) ?? Array.Empty<int>();
         }
 
-        public void RemoveData(int id)
+        public bool RemoveData(int id)
         {
             if (!_loaded)
-                return;
-            _removeDataMethod.Invoke(_tableInstance, new object[] {id});
+                return false;
+            bool result = (bool)_removeDataMethod.Invoke(_tableInstance, new object[] {id});
+			if (result)
+				DataChanged?.Invoke(this);
+			return result;
         }
     }
 }
