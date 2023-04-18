@@ -169,7 +169,8 @@ namespace Rhinox.Vortex
             {
                 if (table == null)
                     continue;
-                table.Refresh(); // TODO: Jorian suggested to work with invalidate instead so that only if it is needed, the data will be reloaded (lazy vs eager)
+                //table.Refresh();
+                // TODO: Jorian suggested to work with invalidate instead so that only if it is needed, the data will be reloaded (lazy vs eager)
             }
         }
 
