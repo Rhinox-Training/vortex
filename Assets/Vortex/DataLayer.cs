@@ -152,6 +152,23 @@ namespace Rhinox.Vortex
             return _endPoint;
         }
 
+        public static bool RefreshEndPoint(DataEndPoint endPoint)
+        {
+            foreach (var localEndPoint in _endPointStack)
+            {
+                if (localEndPoint == null)
+                    continue;
+
+                if (localEndPoint.Equals(endPoint))
+                {
+                    localEndPoint.Refresh();
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         /// <summary>
         /// Returns false if multiple endpoints were found
         /// </summary>

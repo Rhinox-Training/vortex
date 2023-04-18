@@ -9,7 +9,7 @@ using Sirenix.OdinInspector;
 
 namespace Rhinox.Vortex
 {
-    public abstract class DataEndPoint
+    public abstract class DataEndPoint : IEquatable<DataEndPoint>
     {
         #if UNITY_EDITOR
         private string _EDITOR_endPointName => GetType().Name;
@@ -19,7 +19,7 @@ namespace Rhinox.Vortex
         private ICollection<IDataTable> _EDITOR_dataView => _dataTables.Values;
         #endif
         
-        private IDictionary<Type, IDataTable> _dataTables;
+        private readonly IDictionary<Type, IDataTable> _dataTables;
 
         protected DataEndPoint()
         {
@@ -158,6 +158,54 @@ namespace Rhinox.Vortex
                 return null;
 
             return _dataTables[key];
+        }
+
+        public void Refresh()
+        {
+            if (_dataTables == null)
+                return;
+
+            foreach (var table in _dataTables.Values)
+            {
+                if (table == null)
+                    continue;
+                table.Refresh(); // TODO: Jorian suggested to work with invalidate instead so that only if it is needed, the data will be reloaded (lazy vs eager)
+            }
+        }
+
+        public bool Equals(DataEndPoint other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return CheckData(other);
+        }
+
+        protected virtual bool CheckData(DataEndPoint other)
+        {
+            return Equals(_dataTables, other._dataTables);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((DataEndPoint) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return (_dataTables != null ? _dataTables.GetHashCode() : 0);
+        }
+
+        public static bool operator ==(DataEndPoint left, DataEndPoint right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(DataEndPoint left, DataEndPoint right)
+        {
+            return !Equals(left, right);
         }
     }
 }
