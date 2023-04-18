@@ -1,8 +1,8 @@
 {
   "name": "com.rhinox.open.vortex",
   "displayName": "Vortex - Data Layer Integrator",
-  "version": "0.3.1",
-  "unity": "2019.3",
+  "version": "0.3.2",
+  "unity": "2019.4",
   "description": "Integration layer for Data backends with editor",
   "keywords": [
     "csharp",
@@ -13,10 +13,10 @@
   ],
   "category": "Unity",
   "dependencies": {
-    "com.rhinox.open.lightspeed": "1.5.2",
-	"com.rhinox.open.utilities": "1.5.1",
-    "com.rhinox.open.guiutils": "2.5.2",
-    "com.rhinox.open.perceptor": "0.1.2"
+    "com.rhinox.open.lightspeed": "1.5.3",
+	"com.rhinox.open.utilities": "1.5.2",
+    "com.rhinox.open.guiutils": "2.6.2",
+    "com.rhinox.open.perceptor": "0.2.0"
   },
   "repository": {
     "type": "git",
