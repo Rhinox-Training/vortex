@@ -13,7 +13,7 @@ namespace Rhinox.Vortex.File
         {
             var fileContent = FileHelper.ReadAllBytes(path);
             infos = SerializationUtility.DeserializeValue<T[]>(fileContent, DataFormat.JSON);
-            return true;
+            return infos != null;
         }
 
         protected override bool Serialize(string path, T[] infos)
