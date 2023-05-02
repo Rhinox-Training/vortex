@@ -44,7 +44,7 @@ namespace Rhinox.Vortex.Editor
 
         private ValueDropdownList<DataLayerConfig> GetDataLayerOverrides() => DataLayerHelper.GetConfigList(false);
 
-        public DataLayerMainPage(SlidePagedWindowNavigationHelper<object> pager) 
+        public DataLayerMainPage(SlidePageNavigationHelper<object> pager) 
             : base(pager) { }
 
         public void Initialize()
@@ -138,12 +138,6 @@ namespace Rhinox.Vortex.Editor
         {
             OverrideConfig = null;
             OnDataLayerOptionChanged();
-        }
-
-        protected override void OnDrawBottom()
-        {
-            base.OnDrawBottom();
-            GUILayout.FlexibleSpace();
         }
 
 #if ODIN_INSPECTOR
