@@ -49,7 +49,7 @@ namespace Rhinox.Vortex.Editor
             Element = _dataTable.GetStoredObject(IDToRemove);
         }
 
-        public DataLayerRemovePage(SlidePagedWindowNavigationHelper<object> pager, GenericDataTable dataTable) : base(pager, dataTable)
+        public DataLayerRemovePage(SlidePageNavigationHelper<object> pager, GenericDataTable dataTable) : base(pager, dataTable)
         {
             _ids = _dataTable.GetIDs().ToList();
         }

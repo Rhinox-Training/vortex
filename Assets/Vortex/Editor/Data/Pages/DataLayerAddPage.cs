@@ -11,7 +11,7 @@ namespace Rhinox.Vortex.Editor
         [HideReferenceObjectPicker, HideLabel, NonSerialized, DrawAsReference, ShowInEditor, VerticalGroup]
         public object Data;
 
-        public DataLayerAddPage(SlidePagedWindowNavigationHelper<object> pager, GenericDataTable dataTable) : base(pager, dataTable)
+        public DataLayerAddPage(SlidePageNavigationHelper<object> pager, GenericDataTable dataTable) : base(pager, dataTable)
         {
             Data = Activator.CreateInstance(dataTable.DataType);
             var id = _dataTable.GetNewID();

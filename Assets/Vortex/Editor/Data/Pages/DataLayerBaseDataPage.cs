@@ -8,7 +8,7 @@ namespace Rhinox.Vortex.Editor
     {
         protected GenericDataTable _dataTable;
 
-        public DataLayerBaseDataPage(SlidePagedWindowNavigationHelper<object> pager, GenericDataTable dataTable) : base(pager)
+        public DataLayerBaseDataPage(SlidePageNavigationHelper<object> pager, GenericDataTable dataTable) : base(pager)
         {
             _dataTable = dataTable;
             _dataTable.DataChanged += OnDataChanged;
@@ -23,12 +23,6 @@ namespace Rhinox.Vortex.Editor
         private void OnDataChanged(GenericDataTable sender)
         {
             DataLayer.RefreshEndPoint(sender.EndPoint);
-        }
-
-        protected override void OnDrawBottom()
-        {
-            base.OnDrawBottom();
-            GUILayout.FlexibleSpace();
         }
     }
 }
