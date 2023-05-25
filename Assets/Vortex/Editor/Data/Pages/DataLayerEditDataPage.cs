@@ -16,7 +16,7 @@ namespace Rhinox.Vortex.Editor
 
         private Action _onEditEntry;
 
-        public DataLayerEditDataPage(SlidePagedWindowNavigationHelper<object> pager, GenericDataTable dataTable, object data,
+        public DataLayerEditDataPage(SlidePageNavigationHelper<object> pager, GenericDataTable dataTable, object data,
             Action onEditEntry = null) 
             : base(pager, dataTable)
         {
