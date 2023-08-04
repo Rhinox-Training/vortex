@@ -39,6 +39,13 @@ namespace Rhinox.Vortex
         bool RemoveData(int id);
     }
 
+    public interface IDataTableSerializer<T>
+    {
+        ICollection<T> LoadData(bool createIfNotExists = false);
+
+        bool SaveData(ICollection<T> dataObjs);
+    }
+
     // [ValueTypeAsTitle]
     [Title("@$property.ValueEntry.TypeOfValue.Name")]
     public abstract class DataTable<T> : IDataTable<T>
@@ -52,6 +59,10 @@ namespace Rhinox.Vortex
         protected IDictionary<int, T> _dataCacheByID;
 
         protected DataEndPoint _currentEndPoint;
+        
+        protected abstract string _tableName { get; }
+
+        protected IDataTableSerializer<T> _serializer;
 
         public virtual bool Initialize(DataEndPoint endPoint)
         {
@@ -59,7 +70,9 @@ namespace Rhinox.Vortex
                 return true;
 
             _currentEndPoint = endPoint;
-            var dataObjs = LoadData(true).ToArray();
+            RecreateLoader();
+            
+            var dataObjs = HandleLoadData(true);
 
             for (int i = 0; i < dataObjs.Length; ++i)
             {
@@ -71,6 +84,17 @@ namespace Rhinox.Vortex
             return true;
         }
 
+        protected virtual T[] HandleLoadData(bool createIfNotExists)
+        {
+            var dataObjs = _serializer.LoadData(createIfNotExists).ToArray();
+            return dataObjs;
+        }
+
+        private void RecreateLoader()
+        {
+            _serializer = _currentEndPoint.CreateSerializer<T>(_tableName);
+        }
+
         public virtual void FlushData()
         {
             
@@ -79,10 +103,6 @@ namespace Rhinox.Vortex
         protected abstract int GetID(T dto);
 
         protected abstract T SetID(T dto, int id);
-
-        protected abstract ICollection<T> LoadData(bool createIfNotExists = false);
-
-        protected abstract bool SaveData(ICollection<T> dataObjs);
         
         private bool CheckEndPointLoaded(bool forceRefresh = false)
         {
@@ -114,7 +134,7 @@ namespace Rhinox.Vortex
             
             OnSave(dto);
             
-            if (!SaveData(_dataCacheByID.Values))
+            if (!_serializer.SaveData(_dataCacheByID.Values))
                 PLog.Warn<VortexLogger>($"Did not store cached data on store");
             
             return true;
@@ -174,7 +194,7 @@ namespace Rhinox.Vortex
 
             _dataCacheByID.Remove(id);
             
-            if (!SaveData(_dataCacheByID.Values))
+            if (!_serializer.SaveData(_dataCacheByID.Values))
                 PLog.Warn<VortexLogger>($"Did not store cached data on remove");
             return true;
         }

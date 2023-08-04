@@ -8,28 +8,25 @@ using Rhinox.Perceptor;
 namespace Rhinox.Vortex.File
 {
     [DataEndPoint(typeof(FileEndPoint))]
-    public abstract class FileDataTable<T> : DataTable<T>
+    public abstract class FileDataTableSerializer<T> : IDataTableSerializer<T>
     {
-        protected abstract string _tableName { get; }
         private string _filePath;
 
-        public override bool Initialize(DataEndPoint endPoint)
+        protected FileDataTableSerializer(FileEndPoint endPoint, string tableName)
         {
             FileEndPoint fileEndPoint = (FileEndPoint) endPoint;
             if (!FileHelper.IsPathRooted(fileEndPoint.Path))
             {
                 PLog.Error<VortexLogger>(
                     $"Something went wrong, FileEndPoint<{typeof(T).Name}> was initialized with an invalidPath. Path: {fileEndPoint.Path} should be rooted.");
-                return false;
+                //return false;
+                throw new ArgumentException(nameof(endPoint));
             }
 
-            _filePath = Path.Combine(fileEndPoint.Path, $"{_tableName}.datatable");
-            
-            // Initialize needs to be called last (initializes tables, might load data)
-            return base.Initialize(endPoint);
+            _filePath = Path.Combine(fileEndPoint.Path, $"{tableName}.datatable");
         }
 
-        protected override ICollection<T> LoadData(bool createIfNotExists = false)
+        public virtual ICollection<T> LoadData(bool createIfNotExists = false)
         {
             string path = _filePath;
             
@@ -60,7 +57,7 @@ namespace Rhinox.Vortex.File
             return infos;
         }
 
-        protected override bool SaveData(ICollection<T> dataObjs)
+        public virtual bool SaveData(ICollection<T> dataObjs)
         {
             string path = _filePath;
             if (string.IsNullOrWhiteSpace(path) || dataObjs == null)

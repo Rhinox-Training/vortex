@@ -7,11 +7,23 @@ using UnityEngine;
 
 namespace Rhinox.Vortex.File
 {
+    public enum FileType
+    {
+        Json,
+        XML,
+#if ODIN_INSPECTOR
+        OdinJson
+#endif
+    }
+    
     public class FileEndPoint : DataEndPoint
     {
         public string Path => _fullPathAbs;
         private string _fullPathAbs;
         private string _namespace;
+        
+        public FileType Type { get; }
+        
         public FileEndPoint(string basePath, string nameSpace)
         {
             if (string.IsNullOrWhiteSpace(nameSpace))
@@ -55,6 +67,22 @@ namespace Rhinox.Vortex.File
                 return false;
             }
             return base.CheckData(other);
+        }
+
+        public override IDataTableSerializer<T> CreateSerializer<T>(string tableName)
+        {
+            switch (Type)
+            {
+                case FileType.Json:
+                    return new JsonFileDT<T>(this, tableName);
+                    break;
+#if ODIN_INSPECTOR
+                case FileType.OdinJson:
+                    return new OdinJsonFileDT<T>(this, tableName);
+#endif
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }
