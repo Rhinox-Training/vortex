@@ -5,8 +5,13 @@ using Rhinox.Lightspeed.IO;
 
 namespace Rhinox.Vortex.File
 {
-    public abstract class XmlFileDT<T> : FileDataTable<T>
+    public abstract class XmlFileDT<T> : FileDataTableSerializer<T>
     {
+        public XmlFileDT(FileEndPoint endPoint, string tableName) 
+            : base(endPoint, tableName)
+        {
+        }
+        
         protected override bool TryDeserialize(string path, out T[] dataObjs)
         { 
             XmlSerializer serializer = new XmlSerializer(typeof(T[]));

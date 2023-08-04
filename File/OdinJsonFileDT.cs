@@ -7,8 +7,13 @@ using SerializationUtility = Sirenix.Serialization.SerializationUtility;
 
 namespace Rhinox.Vortex.File
 {
-    public abstract class OdinJsonFileDT<T> : FileDataTable<T>
+    public class OdinJsonFileDT<T> : FileDataTableSerializer<T>
     {
+        public OdinJsonFileDT(FileEndPoint endPoint, string tableName) 
+            : base(endPoint, tableName)
+        {
+        }
+
         protected override bool TryDeserialize(string path, out T[] infos)
         {
             var fileContent = FileHelper.ReadAllBytes(path);
