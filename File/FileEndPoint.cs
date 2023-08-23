@@ -24,12 +24,13 @@ namespace Rhinox.Vortex.File
         
         public FileType Type { get; }
         
-        public FileEndPoint(string basePath, string nameSpace)
+        public FileEndPoint(string basePath, string nameSpace, FileType fileType)
         {
             if (string.IsNullOrWhiteSpace(nameSpace))
                 throw new ArgumentNullException(nameof(nameSpace));
             _fullPathAbs = System.IO.Path.Combine(FileEndPointConfig.ROOT_PATH, string.IsNullOrWhiteSpace(basePath) ? "" : basePath, nameSpace);
             _namespace = nameSpace;
+            Type = fileType;
             
             PLog.Info<VortexLogger>($"DataLayer FileEndPoint created: '{_fullPathAbs}'");
 
