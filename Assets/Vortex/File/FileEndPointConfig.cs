@@ -51,7 +51,7 @@ namespace Rhinox.Vortex.File
             if (string.IsNullOrWhiteSpace(Namespace))
                 return null;
             PLog.Info<VortexLogger>($"Creating DataLayer endpoint from [{Namespace}::{BasePath}].");
-            return new FileEndPoint(BasePath, Namespace);
+            return new FileEndPoint(BasePath, Namespace, FileType);
         }
     }
 }
