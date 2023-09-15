@@ -19,6 +19,7 @@ namespace Rhinox.Vortex.File
             {
                 Culture = CultureInfo.InvariantCulture,
                 Formatting = Formatting.Indented,
+                TypeNameHandling = TypeNameHandling.Auto
             };
         }
         
@@ -30,7 +31,7 @@ namespace Rhinox.Vortex.File
                 dataObjs = JsonConvert.DeserializeObject<T[]>(json, _settings);
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 dataObjs = Array.Empty<T>();
                 return false;
