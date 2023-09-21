@@ -7,17 +7,30 @@ using UnityEngine;
 
 namespace Rhinox.Vortex.File
 {
+    public enum FileType
+    {
+        Json,
+        XML,
+#if ODIN_INSPECTOR
+        OdinJson
+#endif
+    }
+    
     public class FileEndPoint : DataEndPoint
     {
         public string Path => _fullPathAbs;
         private string _fullPathAbs;
         private string _namespace;
-        public FileEndPoint(string basePath, string nameSpace)
+        
+        public FileType Type { get; }
+        
+        public FileEndPoint(string basePath, string nameSpace, FileType fileType)
         {
             if (string.IsNullOrWhiteSpace(nameSpace))
                 throw new ArgumentNullException(nameof(nameSpace));
             _fullPathAbs = System.IO.Path.Combine(FileEndPointConfig.ROOT_PATH, string.IsNullOrWhiteSpace(basePath) ? "" : basePath, nameSpace);
             _namespace = nameSpace;
+            Type = fileType;
             
             PLog.Info<VortexLogger>($"DataLayer FileEndPoint created: '{_fullPathAbs}'");
 
@@ -55,6 +68,21 @@ namespace Rhinox.Vortex.File
                 return false;
             }
             return base.CheckData(other);
+        }
+
+        public override IDataTableSerializer<T> CreateSerializer<T>(string tableName)
+        {
+            switch (Type)
+            {
+                case FileType.Json:
+                    return new JsonFileDT<T>(this, tableName);
+#if ODIN_INSPECTOR
+                case FileType.OdinJson:
+                    return new OdinJsonFileDT<T>(this, tableName);
+#endif
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }

@@ -68,3 +68,6 @@ Packages/*odin-inspector/
 Packages/*.odininspector
 Assets/Plugins/Sirenix/*
 Assets/Plugins/Sirenix.meta
+
+
+Packages/com.rhinox.*

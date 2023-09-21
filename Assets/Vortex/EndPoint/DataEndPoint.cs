@@ -29,7 +29,7 @@ namespace Rhinox.Vortex
         public ICollection<Type> GetTableTypes()
         {
             List<Type> types = new List<Type>();
-            foreach (var type in AppDomain.CurrentDomain.GetDefinedTypesWithAttribute<DataEndPointAttribute>())
+            foreach (var type in AppDomain.CurrentDomain.GetDefinedTypesOfType<IDataTable>())
             {
                 if (!type.InheritsFrom(typeof(IDataTable)))
                     continue;
@@ -208,5 +208,7 @@ namespace Rhinox.Vortex
         {
             return !Equals(left, right);
         }
+
+        public abstract IDataTableSerializer<T> CreateSerializer<T>(string tableName);
     }
 }

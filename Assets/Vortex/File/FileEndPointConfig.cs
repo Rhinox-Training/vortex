@@ -43,13 +43,15 @@ namespace Rhinox.Vortex.File
         
         [Required, InfoBox("$_infoBoxMessage", InfoMessageType.None)]
         public string Namespace = "NewFileEndPoint";
+
+        public FileType FileType;
         
         public override DataEndPoint CreateEndPoint()
         {
             if (string.IsNullOrWhiteSpace(Namespace))
                 return null;
             PLog.Info<VortexLogger>($"Creating DataLayer endpoint from [{Namespace}::{BasePath}].");
-            return new FileEndPoint(BasePath, Namespace);
+            return new FileEndPoint(BasePath, Namespace, FileType);
         }
     }
 }

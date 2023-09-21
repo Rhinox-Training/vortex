@@ -25,7 +25,7 @@ public class BigDatabaseItem
     }
 }
 
-public class BigDT : XmlFileDT<BigDatabaseItem>
+public class BigDT : DataTable<BigDatabaseItem>
 {
     protected override string _tableName => "BigTable";
 
