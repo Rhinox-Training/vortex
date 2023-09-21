@@ -10,7 +10,7 @@ public class SimpleType
     public string Name;
 }
 
-public class SimpleTypeDT : XmlFileDT<SimpleType>
+public class SimpleTypeDT : DataTable<SimpleType>
 {
     protected override string _tableName => "SimpleObjects";
 

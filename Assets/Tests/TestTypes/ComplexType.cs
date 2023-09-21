@@ -20,7 +20,7 @@ public class ComplexType
     public NestedComplexType Nested;
 }
 
-public class ComplexTypeDT : JsonFileDT<ComplexType>
+public class ComplexTypeDT : DataTable<ComplexType>
 {
     protected override string _tableName => "ComplexObjects";
 
