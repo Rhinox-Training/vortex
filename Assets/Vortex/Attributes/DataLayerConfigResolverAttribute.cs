@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Rhinox.VOLT.Data
+namespace Rhinox.Vortex
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
     public class DataLayerConfigResolverAttribute : Attribute
