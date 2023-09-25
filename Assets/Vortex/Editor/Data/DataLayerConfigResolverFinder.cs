@@ -2,7 +2,6 @@
 using System;
 using Rhinox.GUIUtils.Odin.Editor;
 using Rhinox.Lightspeed.Reflection;
-using Rhinox.VOLT.Data;
 using Sirenix.OdinInspector.Editor;
 
 namespace Rhinox.Vortex.Editor
