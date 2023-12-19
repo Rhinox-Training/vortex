@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Rhinox.Vortex;
 using Rhinox.Vortex.File;
 using UnityEngine;
 
+[Serializable]
 public class SimpleType
 {
     public int Id;

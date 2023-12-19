@@ -12,7 +12,6 @@ namespace Rhinox.Vortex
     public interface IDataTable
     {
         bool Initialize(DataEndPoint endPoint);
-
         void RefreshDataCache();
         void FlushData();
     }
