@@ -33,16 +33,10 @@ namespace Rhinox.Vortex
             {
                 if (!type.InheritsFrom(typeof(IDataTable)))
                     continue;
-
-                var dataAttribute = type.GetCustomAttribute<DataEndPointAttribute>();
-
-                if (this.GetType().InheritsFrom(dataAttribute.EndPointType))
-                {
-                    types.Add(type);
-                }
+                types.Add(type);
             }
 
-            types = types.OrderBy(x => x.GetCustomAttribute<DataEndPointAttribute>().LoadOrder).ToList();
+            types = types.OrderBy(x => x.GetCustomAttribute<DataTableSettingsAttribute>()?.LoadOrder ?? 0).ToList();
             
             PLog.Info<VortexLogger>($"Initialized {GetType().Name} - Contains {types.Count} Tables:\n\t{string.Join("\n\t", types)}");
 
@@ -169,7 +163,7 @@ namespace Rhinox.Vortex
             {
                 if (table == null)
                     continue;
-                //table.Refresh();
+                table.RefreshDataCache();
                 // TODO: Jorian suggested to work with invalidate instead so that only if it is needed, the data will be reloaded (lazy vs eager)
             }
         }
