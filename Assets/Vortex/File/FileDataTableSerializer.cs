@@ -7,7 +7,6 @@ using Rhinox.Perceptor;
 
 namespace Rhinox.Vortex.File
 {
-    [DataEndPoint(typeof(FileEndPoint))]
     public abstract class FileDataTableSerializer<T> : IDataTableSerializer<T>
     {
         private string _filePath;
