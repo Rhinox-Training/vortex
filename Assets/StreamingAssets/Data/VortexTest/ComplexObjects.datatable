@@ -1,1 +1,13 @@
-[{"Id":0,"Name":"test","Nested":{"Name":"Nested1","Nested":{"Name":"Nested2","Nested":null}}}]
+[
+  {
+    "Id": 0,
+    "Name": "sadfd",
+    "Nested": {
+      "Name": "qwrwqewr",
+      "Nested": {
+        "Name": null,
+        "Nested": null
+      }
+    }
+  }
+]

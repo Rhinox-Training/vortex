@@ -5,7 +5,7 @@ using Rhinox.Lightspeed.IO;
 
 namespace Rhinox.Vortex.File
 {
-    public abstract class XmlFileDT<T> : FileDataTableSerializer<T>
+    public class XmlFileDT<T> : FileDataTableSerializer<T>
     {
         public XmlFileDT(FileEndPoint endPoint, string tableName) 
             : base(endPoint, tableName)

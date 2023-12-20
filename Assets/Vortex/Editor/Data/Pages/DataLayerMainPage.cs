@@ -59,7 +59,7 @@ namespace Rhinox.Vortex.Editor
             _pager.PushPage(new DataLayerAddPage(_pager, _genericTable), "Add Database Entry");
         }
         
-        [Button(ButtonSizes.Large), LabelText("@ViewEntriesName"), EnableIf("ValidType"), VerticalGroup]
+        [Button("$ViewEntriesName", ButtonSizes.Large), EnableIf("ValidType"), VerticalGroup]
         private void ViewEntries()
         {
             _pager.PushPage(new DataLayerViewPage(_pager, _genericTable), "View Database Entries");

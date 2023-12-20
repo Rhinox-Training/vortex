@@ -12,7 +12,7 @@ namespace Rhinox.Vortex
     public interface IDataTable
     {
         bool Initialize(DataEndPoint endPoint);
-
+        void RefreshDataCache();
         void FlushData();
     }
 
@@ -72,15 +72,7 @@ namespace Rhinox.Vortex
             _currentEndPoint = endPoint;
             RecreateLoader();
             
-            var dataObjs = HandleLoadData(true);
-
-            for (int i = 0; i < dataObjs.Length; ++i)
-            {
-                T info = dataObjs[i];
-                dataObjs[i] = OnLoad(info);
-            }
-            
-            _dataCacheByID = dataObjs.ToDictionary(x => GetID(x));
+            RefreshDataCache();
             return true;
         }
 
@@ -93,6 +85,19 @@ namespace Rhinox.Vortex
         private void RecreateLoader()
         {
             _serializer = _currentEndPoint.CreateSerializer<T>(_tableName);
+        }
+
+        public void RefreshDataCache()
+        {
+            var dataObjs = HandleLoadData(true);
+
+            for (int i = 0; i < dataObjs.Length; ++i)
+            {
+                T info = dataObjs[i];
+                dataObjs[i] = OnLoad(info);
+            }
+
+            _dataCacheByID = dataObjs.ToDictionary(x => GetID(x));
         }
 
         public virtual void FlushData()
