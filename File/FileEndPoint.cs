@@ -76,6 +76,10 @@ namespace Rhinox.Vortex.File
             {
                 case FileType.Json:
                     return new JsonFileDT<T>(this, tableName);
+                
+                case FileType.XML:
+                    return new XmlFileDT<T>(this, tableName);
+                
 #if ODIN_INSPECTOR
                 case FileType.OdinJson:
                     return new OdinJsonFileDT<T>(this, tableName);
